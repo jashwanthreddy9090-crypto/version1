@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Campus 360 Dashboard</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<header class="topbar"><div class="brand"><span class="logo">C360</span><span>Campus 360</span></div><a class="sos" href="tel:112">SOS</a></header>
+<main class="page"><section class="card dashboard">
+<p class="eyebrow">WELCOME</p><h1 style="font-size:52px;margin:10px 0">Hello, {{ user.name }}</h1>
+<p class="lead">You are logged in as <b>{{ user.role }}</b>.</p>
+<div class="service-grid">
+<a href="#" onclick="alert('Connect complaint form here');return false">📝 Report Complaint</a>
+<a href="#" onclick="alert('Connect complaint tracking here');return false">📋 Track Complaint</a>
+<a href="#" onclick="alert('AI Assistant');return false">💬 AI Assistant</a>
+{% if user.role == 'admin' %}
+<a href="/admin/login-data">📊 Download Login Excel</a>
+{% endif %}
+</div>
+<a class="secondary" href="/logout">Logout</a>
+</section></main>
+</body></html>

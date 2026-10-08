@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus 360</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">C360</span><span>Campus 360</span></div>
+    <button class="sos" onclick="sos()">SOS</button>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">CAMPUS OPERATIONS</p>
+        <h1>Campus<br><span>360°</span></h1>
+        <p class="lead">One intelligent space for student support, complaints, campus services and faster resolutions.</p>
+        <div class="stats">
+          <div><b>24/7</b><small>Support access</small></div>
+          <div><b>360°</b><small>Campus coverage</small></div>
+          <div><b>1 Hub</b><small>Every request</small></div>
+        </div>
+      </div>
+
+      <section class="card login-card">
+        <p class="eyebrow">SECURE ACCESS</p>
+        <h2>Welcome back.</h2>
+        <p class="muted">Sign in with your official campus account.</p>
+
+        <form id="loginForm">
+          <label>Campus email</label>
+          <input id="email" type="email" placeholder="admin@campus.360" required>
+
+          <label>Password</label>
+          <input id="password" type="password" placeholder="Enter your password" required>
+
+          <button class="primary" type="submit">Enter Campus 360 →</button>
+        </form>
+
+        <div class="hint">Use your official <b>@campus.360</b> account.</div>
+        <p class="secure">🔒 Secure campus workspace</p>
+      </section>
+    </section>
+
+    <section class="dashboard card" id="dashboard" hidden>
+      <div class="dash-head">
+        <div>
+          <p class="eyebrow">STUDENT WORKSPACE</p>
+          <h2>Campus Services</h2>
+        </div>
+        <button class="secondary" onclick="logout()">Logout</button>
+      </div>
+
+      <div class="service-grid">
+        <button onclick="openComplaint()">📝 Report Complaint</button>
+        <button onclick="showStatus()">📋 Track Complaint</button>
+        <button onclick="showHelp()">💬 AI Assistant</button>
+        <button onclick="sos()">🚨 Emergency SOS</button>
+      </div>
+
+      <div class="chat" id="chat">
+        <div class="chat-head">
+          <b>Campus AI Assistant</b>
+          <button class="new-chat" onclick="newChat()">New Chat</button>
+        </div>
+        <div class="messages" id="messages">
+          <div class="msg ai">Hi! I'm your Campus 360 assistant. How can I help you?</div>
+        </div>
+        <div class="chat-input">
+          <input id="chatInput" placeholder="Ask about campus services..." onkeydown="chatKey(event)">
+          <button onclick="sendChat()">Send</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Campus 360 • Student Support & Campus Services</footer>
+  <script src="script.js"></script>
+</body>
+</html>
