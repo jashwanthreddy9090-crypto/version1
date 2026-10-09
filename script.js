@@ -75,7 +75,7 @@ function addMessage(text,type){
   box.appendChild(div);
   box.scrollTop=box.scrollHeight;
 }
-fetch("")
+fetch(" https://jashwanthreddy9090-crypto.github.io/version1/")
   .then(response => response.json())
   .then(data => {
     console.log(data);
