@@ -1,85 +1,56 @@
-const ADMIN_EMAIL="admin@campus.360";
-const ADMIN_PASSWORD="Campus360@Admin2026";
 
-document.getElementById("loginForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  const email=document.getElementById("email").value.trim().toLowerCase();
-  const password=document.getElementById("password").value;
+(function () {
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("chat-input");
+    const chat = document.getElementById("chat");
 
-  if(!email.endsWith("@campus.360")){
-    alert("Use your official @campus.360 account.");
-    return;
-  }
-  if(email===ADMIN_EMAIL && password===ADMIN_PASSWORD){
-    document.querySelector(".hero").hidden=true;
-    document.getElementById("dashboard").hidden=false;
-    window.scrollTo({top:0,behavior:"smooth"});
-    return;
-  }
-  alert("Invalid credentials. Student accounts must be created by the administrator.");
-});
+    if (!form || !input || !chat) return;
 
-function logout(){
-  document.querySelector(".hero").hidden=false;
-  document.getElementById("dashboard").hidden=true;
-  document.getElementById("password").value="";
-}
+    function addMessage(message, type) {
+        const element = document.createElement("div");
+        element.className = "chat-message " + type;
+        element.textContent = message;
+        chat.appendChild(element);
+        chat.scrollTop = chat.scrollHeight;
+    }
 
-function sos(){
-  const ok=confirm("Emergency SOS: call campus emergency support?");
-  if(ok) window.location.href="tel:112";
-}
+    function getAnswer(question) {
+        const q = question.toLowerCase();
 
-function openComplaint(){
-  alert("Complaint module: connect this button to your Flask backend/API when deploying the full application.");
-}
-function showStatus(){
-  alert("Complaint tracking module: connect this button to your Flask backend/API.");
-}
-function showHelp(){
-  document.getElementById("chat").scrollIntoView({behavior:"smooth"});
-  document.getElementById("chatInput").focus();
-}
+        if (q.includes("emergency") || q.includes("sos") ||
+            q.includes("danger")) {
+            return "For immediate danger in India, call 112. " +
+                   "Do not rely on this assistant for emergency help.";
+        }
 
-function newChat(){
-  document.getElementById("messages").innerHTML='<div class="msg ai">New chat started. How can I help you?</div>';
-}
+        if (q.includes("track") || q.includes("status")) {
+            return "Open My Complaints to check your complaint status.";
+        }
 
-function chatKey(e){
-  if(e.key==="Enter" && !e.shiftKey){
-    e.preventDefault();
-    sendChat();
-  }
-}
+        if (q.includes("worker") || q.includes("assigned")) {
+            return "The assigned worker's name appears on your complaint.";
+        }
 
-function sendChat(){
-  const input=document.getElementById("chatInput");
-  const text=input.value.trim();
-  if(!text)return;
-  addMessage(text,"user");
-  input.value="";
-  setTimeout(()=>{
-    let reply="I can help with complaints, campus services, emergency support and general Campus 360 questions.";
-    const q=text.toLowerCase();
-    if(q.includes("complaint")) reply="You can use Report Complaint to submit a campus issue. The full Flask version can save it to the database.";
-    else if(q.includes("emergency")||q.includes("sos")) reply="For an emergency, use the SOS button at the top-right. In India, 112 is the national emergency number.";
-    else if(q.includes("password")||q.includes("login")) reply="Use your official @campus.360 account. Student credentials are created by the administrator.";
-    addMessage(reply,"ai");
-  },400);
-}
-function addMessage(text,type){
-  const box=document.getElementById("messages");
-  const div=document.createElement("div");
-  div.className="msg "+type;
-  div.textContent=text;
-  box.appendChild(div);
-  box.scrollTop=box.scrollHeight;
-}
-fetch(" https://jashwanthreddy9090-crypto.github.io/version1/")
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error("Backend connection failed:", error);
-  });
+        if (q.includes("water") || q.includes("electric") ||
+            q.includes("clean") || q.includes("wifi") ||
+            q.includes("hostel")) {
+            return "Open Report Complaint, choose the relevant category, " +
+                   "describe the issue and submit it.";
+        }
+
+        return "You can report campus problems, track complaints, " +
+               "or use Emergency SOS. How can I help you?";
+    }
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const question = input.value.trim();
+        if (!question) return;
+
+        addMessage(question, "user-message");
+        input.value = "";
+
+        addMessage(getAnswer(question), "ai-message");
+    });
+})();
