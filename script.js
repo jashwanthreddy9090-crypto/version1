@@ -75,3 +75,11 @@ function addMessage(text,type){
   box.appendChild(div);
   box.scrollTop=box.scrollHeight;
 }
+fetch("")
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error("Backend connection failed:", error);
+  });
